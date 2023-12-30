@@ -6,6 +6,7 @@ namespace ClinicManagementWeb.Models;
 public partial class Appointment
 {
     public int AppointmentId { get; set; }
+    public bool IsPreserved {  get; set; }
 
     public DateOnly? AppointmentDate { get; set; }
 

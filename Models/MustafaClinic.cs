@@ -50,14 +50,6 @@ public partial class MustafaClinic : DbContext
             entity.Property(e => e.TotalPrice)
                 .HasMaxLength(255)
                 .HasColumnName("totalPrice");
-
-            entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Appointme__docto__6E01572D");
-
-            entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__Appointme__patie__6D0D32F4");
         });
 
         modelBuilder.Entity<Doctor>(entity =>

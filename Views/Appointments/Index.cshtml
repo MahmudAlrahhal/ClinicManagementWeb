@@ -1,0 +1,69 @@
+﻿@model List<Appointment>
+<h1>Appointments</h1>
+<div>
+    <form asp-controller="Appointments" asp-action="Index1" method="post">
+        <input type="date" name="date" value="@Model[0].AppointmentDate.Value.ToString("yyyy-MM-dd")" />
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Appointment Date
+            </th>
+            <th>
+                Appointment Time
+            </th>
+            <th>
+                Total Price
+            </th>
+            <th>
+                Paid Amount
+            </th>
+            <th>
+                Remaining Amount
+            </th>
+            <th>
+                Is Preserved?
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model)
+        {
+
+            <tr>
+                <td>
+                    @obj.AppointmentDate
+                </td>
+                <td>
+                    @obj.AppointmentTime
+                </td>
+                <td>
+                    @obj.TotalPrice
+                </td>
+                <td>
+                    @obj.PaidAmount
+                </td>
+                <td>
+                    @obj.RemainingAmount
+                </td>
+                <td>
+                    @if(@obj.IsPreserved == false)
+                    {
+                        <a class="btn btn-primary">Not Preserved</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger">Preserved</a>
+                    }
+                    
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

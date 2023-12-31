@@ -25,5 +25,22 @@ namespace ClinicManagementWeb.Controllers
             .ToList();
             return View("Index",objAppointments);
         }
+        [HttpPost]
+        public IActionResult Select(Appointment appointment)
+        {
+            return View(appointment);
+        }
+        [HttpPost]
+        public IActionResult Preserve(Appointment aptmt)
+        {
+            int procedure = _db.ExecuteAppointmentUpdateStoredProcedure(aptmt.AppointmentId, aptmt.AppointmentDate,
+                aptmt.AppointmentTime, aptmt.TotalPrice, aptmt.PaidAmount, aptmt.RemainingAmount,
+                aptmt.PatientId, aptmt.DoctorId, aptmt.Note, true);
+
+            List<Appointment> objAppointments = _db.Appointments
+            .Where(x => x.AppointmentDate == DateOnly.FromDateTime(DateTime.Now))
+            .ToList();
+            return View("Index", objAppointments);
+        }
     }
 }

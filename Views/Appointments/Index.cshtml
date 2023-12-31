@@ -7,9 +7,20 @@
     </form>
 </div>
 
+<style>
+    /* Hide the second column */
+    th:nth-child(1),
+    td:nth-child(1) {
+        display: none;
+    }
+</style>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th>
+                AppointmentId
+            </th>
             <th>
                 Appointment Date
             </th>
@@ -26,6 +37,9 @@
                 Remaining Amount
             </th>
             <th>
+                Note
+            </th>
+            <th>
                 Is Preserved?
             </th>
         </tr>
@@ -35,6 +49,9 @@
         {
 
             <tr>
+                <td>
+                    @obj.AppointmentId
+                </td>
                 <td>
                     @obj.AppointmentDate
                 </td>
@@ -51,19 +68,73 @@
                     @obj.RemainingAmount
                 </td>
                 <td>
+                    @obj.Note
+                </td>
+                <td>
                     @if(@obj.IsPreserved == false)
                     {
-                        <a class="btn btn-primary">Not Preserved</a>
+                        <button onclick="getData(this)" class="btn btn-success">Preserve</button>
                     }
                     else
                     {
-                        <a class="btn btn-danger">Preserved</a>
+                        <button onclick="getData(this)" class="btn btn-outline-secondary" disabled>Preserved</button>
+                        <button onclick="getData(this)" class="btn btn-danger">Delete Preservation</button>
                     }
                     
-                    
+        
                 </td>
             </tr>
         }
     </tbody>
 
 </table>
+
+<script>
+    function sendDataToController(date, time, appointmentId) {
+        // Create a form dynamically
+        var form = document.createElement('form');
+        form.action = '/Appointments/Select'; // Replace with your controller and action
+        form.method = 'post';
+
+        // Create hidden input fields for each data
+        var dateInput = document.createElement('input');
+        dateInput.type = 'hidden';
+        dateInput.name = 'AppointmentDate';
+        dateInput.value = date;
+
+        var timeInput = document.createElement('input');
+        timeInput.type = 'hidden';
+        timeInput.name = 'AppointmentTime';
+        timeInput.value = time;
+
+        var IdInput = document.createElement('input');
+        IdInput.type = 'hidden';
+        IdInput.name = 'AppointmentId';
+        IdInput.value = appointmentId;
+
+        // Append input fields to the form
+        form.appendChild(dateInput);
+        form.appendChild(timeInput);
+        form.appendChild(IdInput);
+
+        // Append the form to the document and submit it
+        document.body.appendChild(form);
+        form.submit();
+
+        // Optional: Remove the form from the document if needed
+        document.body.removeChild(form);
+    }
+
+    function getData(button) {
+        // Get the row of the clicked button
+        var row = button.parentNode.parentNode;
+
+        // Get the data in the row
+        var appointmentId = row.cells[0].innerHTML;
+        var date = row.cells[1].innerHTML;
+        var time = row.cells[2].innerHTML;
+
+        // Send data to the controller
+        sendDataToController(date, time, appointmentId);
+    }
+</script>

@@ -1,12 +1,14 @@
 ﻿using ClinicManagementWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using DataAccess;
+using DataAccess.Data;
 
 namespace ClinicManagementWeb.Controllers
 {
     public class AppointmentsController : Controller
     {
-        private readonly MustafaClinic _db;
-        public AppointmentsController(MustafaClinic db)
+        private readonly MustafaClinicDbContext _db;
+        public AppointmentsController(MustafaClinicDbContext db)
         {
             _db = db;
         }

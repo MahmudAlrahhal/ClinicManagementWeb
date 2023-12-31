@@ -7,6 +7,7 @@ public partial class Appointment
 {
     public int AppointmentId { get; set; }
     public bool IsPreserved {  get; set; }
+    public string? Note { get; set; }
 
     public DateOnly? AppointmentDate { get; set; }
 

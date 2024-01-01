@@ -78,7 +78,7 @@
                     else
                     {
                         <button onclick="getData(this)" class="btn btn-outline-secondary" disabled>Preserved</button>
-                        <button onclick="getData(this)" class="btn btn-danger">Delete Preservation</button>
+                        <button onclick="getDataDeleteID(this)" class="btn btn-danger">Delete Preservation</button>
                     }
                     
         
@@ -136,5 +136,32 @@
 
         // Send data to the controller
         sendDataToController(date, time, appointmentId);
+    }
+
+    function sendDataToDeleteController(appointmentId) {
+        // Create a form dynamically
+        var form = document.createElement('form');
+        form.action = '/Appointments/Delete'; // Replace with your controller and action
+        form.method = 'post';
+
+        // Create hidden input fields for each data
+        var appointmentIdInput = document.createElement('input');
+        appointmentIdInput.type = 'hidden';
+        appointmentIdInput.name = 'id';
+        appointmentIdInput.value = appointmentId;
+
+        form.appendChild(appointmentIdInput)
+        // Append the form to the document and submit it
+        document.body.appendChild(form);
+        form.submit();
+
+        // Optional: Remove the form from the document if needed
+        document.body.removeChild(form);
+    }
+    function getDataDeleteID(button) {
+        var row = button.parentNode.parentNode;
+        var appointmentId = row.cells[0].innerHTML;
+        sendDataToDeleteController(appointmentId);
+
     }
 </script>

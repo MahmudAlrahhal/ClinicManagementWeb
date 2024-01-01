@@ -1,0 +1,39 @@
+﻿@model Patient // Adjust the namespace as needed
+
+@{
+    ViewData["Title"] = "Register Patient";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <form asp-action="Register" method="post">
+        <div class="mb-3">
+            <label for="PhoneNumber" class="form-label">Phone Number:</label>
+            <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" required />
+            <div class="invalid-feedback">Please provide a valid phone number.</div>
+        </div>
+        <div class="mb-3">
+            <label for="PatientName" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="PatientName" name="PatientName" required />
+            <div class="invalid-feedback">Name is required.</div>
+        </div>
+        <div class="mb-3">
+            <label for="PatientSurname" class="form-label">Surname:</label>
+            <input type="text" class="form-control" id="PatientSurname" name="PatientSurname" required />
+            <div class="invalid-feedback">Surname is required.</div>
+        </div>
+        <div class="mb-3">
+            <label for="DateOfBirth" class="form-label">Date of Birth:</label>
+            <input type="date" class="form-control" id="DateOfBirth" name="DateOfBirth" required />
+            <div class="invalid-feedback">Please provide a valid date of birth.</div>
+        </div>
+        <div class="mb-3">
+            <label for="Note" class="form-label">Note:</label>
+            <textarea class="form-control" id="Note" name="Note"></textarea>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" asp-area="" asp-controller="Patients" asp-action="Register">Register</button>
+        </div>
+    </form>
+</div>

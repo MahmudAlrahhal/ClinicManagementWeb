@@ -1,11 +1,16 @@
 using ClinicManagementWeb.Models;
 using DataAccess.Data;
+using DataAccess.Repository;
+using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IUnitofWork, UnitofWork>();
 builder.Services.AddDbContext<MustafaClinicDbContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefautlConnection1")));
 
@@ -28,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Appointments}/{action=Index}/{id?}");
 
 app.Run();

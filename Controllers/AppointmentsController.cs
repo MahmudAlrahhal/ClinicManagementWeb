@@ -1,7 +1,6 @@
 ﻿using ClinicManagementWeb.Models;
-using Microsoft.AspNetCore.Mvc;
-using DataAccess;
 using DataAccess.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManagementWeb.Controllers
 {

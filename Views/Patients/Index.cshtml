@@ -1,0 +1,23 @@
+﻿<div class="container mt-5">
+    <h2 class="mb-4">Patient Management</h2>
+
+    <!-- Select Patient by ID Section -->
+    <div class="mb-3">
+        <label for="patientId">Select Patient by ID</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="patientId" placeholder="Enter Patient ID">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="selectPatientBtn">Select Patient</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show Patients Button -->
+    <button class="btn btn-success" type="button" id="showPatientsBtn">Show Patients</button>
+
+    <!-- Create Patient Button -->
+    <a class="btn btn-info" type="button" id="createPatientBtn" asp-area="" asp-controller="Patients" asp-action="RegisterPage">Create Patient</a>
+
+    <!-- Delete Patient Button -->
+    <button class="btn btn-danger" type="button" id="deletePatientBtn">Delete Patient</button>
+</div>

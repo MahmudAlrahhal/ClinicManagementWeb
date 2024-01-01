@@ -1,5 +1,6 @@
 ﻿using ClinicManagementWeb.Models;
 using DataAccess.Data;
+using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicManagementWeb.Controllers
@@ -7,9 +8,11 @@ namespace ClinicManagementWeb.Controllers
     public class AppointmentsController : Controller
     {
         private readonly MustafaClinicDbContext _db;
-        public AppointmentsController(MustafaClinicDbContext db)
+        private readonly IUnitofWork _unitofWork;
+        public AppointmentsController(MustafaClinicDbContext db, IUnitofWork unitofWork)
         {
             _db = db;
+            _unitofWork = unitofWork;
         }
         public IActionResult Index()
         {
@@ -42,6 +45,12 @@ namespace ClinicManagementWeb.Controllers
             .Where(x => x.AppointmentDate == DateOnly.FromDateTime(DateTime.Now))
             .ToList();
             return View("Index", objAppointments);
+        }
+        public IActionResult Delete(int id)
+        {
+            Appointment appointment = _unitofWork.AppointmentRepository.find(id);
+            _unitofWork.AppointmentRepository.upDelete(appointment);
+            return RedirectToAction("Index");
         }
     }
 }

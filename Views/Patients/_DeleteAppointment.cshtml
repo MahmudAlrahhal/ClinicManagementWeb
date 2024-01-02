@@ -1,0 +1,89 @@
+﻿@model Patient
+
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Patient Surname</th>
+                <th>Patient Phone Number</th>
+                <th>Appointment Date</th>
+                <th>Appointment Time</th>
+                <th>Appointment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model.Appointments != null)
+                {
+                    @foreach (var appointment in Model.Appointments)
+                    {
+                    <tr>
+                        <td hidden>@appointment.AppointmentId</td>
+                        <td>@appointment.Patient.PatientName</td>
+                        <td>@appointment.Patient.PatientSurname</td>
+                        <td>@appointment.Patient.PhoneNumber</td>
+                        <td>@appointment.AppointmentDate</td>
+                        <td>@appointment.AppointmentTime</td>
+                        <td>
+                                @if (@appointment.IsPreserved == false)
+                                {
+                                <button onclick="getData(this)" class="btn btn-success">Preserve</button>
+                                }
+                                else
+                                {
+                                <button onclick="getData(this)" class="btn btn-outline-secondary" disabled>Preserved</button>
+                                <button onclick="getDataDeleteID(this)" class="btn btn-danger">Delete Preservation</button>
+                                }
+                        </td>
+
+                    </tr>
+                    }
+                }
+                else
+                {
+            <td>@Model.PatientName</td>
+            <td>@Model.PatientSurname</td>
+            <td>@Model.PhoneNumber</td>
+                }
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function sendDataToDeleteController(appointmentId, phoneNumber) {
+        // Create a form dynamically
+        var form = document.createElement('form');
+        form.action = '/Patients/DeleteAppointment'; // Replace with your controller and action
+        form.method = 'post';
+
+        // Create hidden input fields for each data
+        var appointmentIdInput = document.createElement('input');
+        appointmentIdInput.type = 'hidden';
+        appointmentIdInput.name = 'id';
+        appointmentIdInput.value = appointmentId;
+
+        var appointmentphoneNumberInput = document.createElement('input');
+        appointmentphoneNumberInput.type = 'hidden';
+        appointmentphoneNumberInput.name = 'phoneNumber';
+        appointmentphoneNumberInput.value = phoneNumber;
+
+        form.appendChild(appointmentIdInput)
+        form.appendChild(appointmentphoneNumberInput)
+        // Append the form to the document and submit it
+        document.body.appendChild(form);
+        form.submit();
+
+        // Optional: Remove the form from the document if needed
+        document.body.removeChild(form);
+    }
+    function getDataDeleteID(button) {
+        var row = button.parentNode.parentNode;
+        var appointmentId = row.cells[0].innerHTML;
+        var phoneNumber = row.cells[3].innerHTML;
+        sendDataToDeleteController(appointmentId, phoneNumber);
+
+    }
+</script>

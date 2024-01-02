@@ -28,5 +28,30 @@ namespace ClinicManagementWeb.Controllers
             _IunitofWork.save();
             return RedirectToAction("Index", "Appointments");
         }
+        public IActionResult ShowPatient(string phoneNumber)
+        {
+            if(phoneNumber != null) 
+            {
+                Patient patient = _IunitofWork.PatientRepository.Get(u => u.PhoneNumber.Equals(phoneNumber));
+                List<Appointment> patientAppointments = _IunitofWork.AppointmentRepository.GetAll(a => a.PatientId.Equals(phoneNumber)).ToList();
+                patient.Appointments = patientAppointments;
+                return PartialView(patient);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+        public IActionResult DeleteAppointment(int id, string phoneNumber)
+        {
+            Appointment appointment = _IunitofWork.AppointmentRepository.find(id);
+            //_IunitofWork.AppointmentRepository.upDelete(appointment);
+            return RedirectToAction("Index");
+        }
+
+        
+
+        }
     }
-}
+

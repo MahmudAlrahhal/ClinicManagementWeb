@@ -27,6 +27,13 @@ namespace ClinicManagementWeb.Controllers
             List<Appointment> objAppointments = _db.Appointments
             .Where(x => x.AppointmentDate == DateOnly.FromDateTime(date))
             .ToList();
+            foreach(Appointment objAppointment in objAppointments)
+            {
+                if(objAppointment.IsPreserved == true)
+                {
+                    objAppointment.Patient = _unitofWork.PatientRepository.Get(p => p.PhoneNumber == objAppointment.PatientId);
+                }
+            }
             return View("Index",objAppointments);
         }
         [HttpPost]

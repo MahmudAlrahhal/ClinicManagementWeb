@@ -1,5 +1,5 @@
-﻿using ClinicManagementWeb.Models;
-using DataAccess.Data;
+﻿using Models;
+using DataAccess;
 using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Mvc;

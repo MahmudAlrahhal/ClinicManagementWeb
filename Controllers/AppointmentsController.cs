@@ -47,13 +47,20 @@ namespace ClinicManagementWeb.Controllers
         [HttpPost]
         public IActionResult Select(Appointment appointment)
         {
+            
+            if (appointment.IsPreserved == true)
+            {
+                appointment.Patient = _unitofWork.PatientRepository.Get(p => p.PhoneNumber == appointment.PatientId);
+            }
+            
             return View(appointment);
         }
         [HttpPost]
         public IActionResult Preserve(Appointment aptmt)
         {
+            int remainingAmount = Convert.ToInt32(aptmt.TotalPrice) - Convert.ToInt32(aptmt.PaidAmount);
             int procedure = _db.ExecuteAppointmentUpdateStoredProcedure(aptmt.AppointmentId, aptmt.AppointmentDate,
-                aptmt.AppointmentTime, aptmt.TotalPrice, aptmt.PaidAmount, aptmt.RemainingAmount,
+                aptmt.AppointmentTime, aptmt.TotalPrice, aptmt.PaidAmount, remainingAmount.ToString(),
                 aptmt.PatientId, aptmt.DoctorId, aptmt.Note, true);
 
             List<Appointment> objAppointments = _db.Appointments
@@ -69,9 +76,9 @@ namespace ClinicManagementWeb.Controllers
 
             return View("Index", objAppointments);
         }
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int AppointmentId)
         {
-            Appointment appointment = _unitofWork.AppointmentRepository.find(id);
+            Appointment appointment = _unitofWork.AppointmentRepository.find(AppointmentId);
             _unitofWork.AppointmentRepository.upDelete(appointment);
             return RedirectToAction("Index");
         }

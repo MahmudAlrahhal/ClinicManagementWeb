@@ -1,5 +1,5 @@
-using ClinicManagementWeb.Models;
-using DataAccess.Data;
+using Models;
+using DataAccess;
 using DataAccess.Repository;
 using DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPaymentsRepository, PaymentsRepository>();
 builder.Services.AddScoped<IUnitofWork, UnitofWork>();
 builder.Services.AddDbContext<MustafaClinicDbContext>(options=>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefautlConnection1")));

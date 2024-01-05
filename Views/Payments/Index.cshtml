@@ -1,0 +1,31 @@
+﻿@model Payments
+
+<h2>Create Payment</h2>
+
+<form action="@Url.Action("Create", "Payments")" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="PaymentDate" class="control-label">Payment Date</label>
+        <input type="date" id="PaymentDate" name="PaymentDate" value="@Model.PaymentDate.Value.ToString("yyyy-MM-dd")" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="Amount" class="control-label">Amount</label>
+        <input type="text" id="Amount" name="Amount" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="PaymentMethod" class="control-label">Payment Method</label>
+        <input type="text" id="PaymentMethod" name="PaymentMethod" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="AppointmentId" class="control-label">Appointment ID</label>
+        <input type="text" id="AppointmentId" name="AppointmentId" value="@Model.AppointmentId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" asp-controller="Payments" asp-action="AddPayment" class="btn btn-primary" />
+    </div>
+</form>

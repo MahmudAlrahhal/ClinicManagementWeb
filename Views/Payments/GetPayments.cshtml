@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Payments>
+
+<form id="paymentsForm">
+    <!-- style="display:none;"> -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>Payment Date</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var payment in Model)
+            {
+                <tr>
+                    <td>@payment.PaymentId</td>
+                    <td>@payment.PaymentDate</td>
+                    <td>@payment.Amount</td>
+                    <td>@payment.PaymentMethod</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- <button type="button" class="btn btn-secondary" onclick="hidePaymentsForm()">Close</button>-->
+</form>
+
+<!--<button type="button" class="btn btn-primary mt-2" onclick="showPaymentsForm()">
+    Show Payments
+</button>
+
+@section scripts {
+    <script>
+        function showPaymentsForm() {
+            document.getElementById('paymentsForm').style.display = 'block';
+        }
+
+        function hidePaymentsForm() {
+            document.getElementById('paymentsForm').style.display = 'none';
+        }
+    </script>
+}
+-->

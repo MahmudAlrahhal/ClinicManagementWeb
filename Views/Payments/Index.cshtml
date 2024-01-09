@@ -1,7 +1,20 @@
 ﻿@model Payments
 
-<h2>Create Payment</h2>
+<h2>Payments</h2>
 
+<h3>Show Payments</h3>
+<form>
+<div class="form-group">
+    <label for="AppointmentId" class="control-label">Appointment ID</label>
+    <input type="text" id="AppointmentId" name="AppointmentId" value="@Model.AppointmentId" class="form-control" />
+</div>
+
+    <button type="submit" class="btn btn-primary mt-2" asp-area="" asp-controller="Payments" asp-action="GetPayments">
+        <!--data-bs-toggle="modal" data-bs-target="#myModal">-->
+    Show Payments
+    </button>
+</form>
+<h3 class="mt-2">Add Payment</h3>
 <form action="@Url.Action("Create", "Payments")" method="post">
     @Html.AntiForgeryToken()
 
@@ -25,7 +38,37 @@
         <input type="text" id="AppointmentId" name="AppointmentId" value="@Model.AppointmentId" class="form-control" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <input type="submit" value="Create" asp-controller="Payments" asp-action="AddPayment" class="btn btn-primary" />
     </div>
 </form>
+
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal" data-bs-target="#myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Your Form</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Include the partial view for the form -->
+                @Html.Partial("_GetPaymentsPartial")
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
